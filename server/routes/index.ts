@@ -6,6 +6,7 @@ import quizzesRouter from "./quizzes";
 import walletRouter from "./wallet";
 import studentsRouter from "./students";
 import analyticsRouter from "./analytics";
+import achieversRouter from "./achievers";
 
 const router = Router();
 
@@ -17,5 +18,6 @@ router.use("/quizzes", quizzesRouter);
 router.use("/wallet", walletRouter);
 router.use("/students", studentsRouter);
 router.use("/analytics", analyticsRouter);
+router.use("/achievers", achieversRouter);
 
 export default router;

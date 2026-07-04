@@ -156,12 +156,12 @@ model TopAchiever {
   name           String
   result_line    String
   photo_url      String?
-  display_order  Int      @default(0) // Controls sequence on landing page; lower numbers appear first
+  display_order  Int      @default(0) // Controls sequence; lower numbers appear first
   created_at     String   // ISO string
 }
 
 model AchieversSettings {
   id                        String   @id @default(uuid())
-  achievers_homepage_count  Int      @default(6) // Number of achievers to display on public landing page
+  achievers_homepage_count  Int      @default(6) // Number of achievers on landing page
   updated_at                String   // ISO string
 }
