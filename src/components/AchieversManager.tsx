@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Plus, Trash2, Edit2, GripVertical, Save, X, Upload } from "lucide-react";
+import { Plus, Trash2, Edit2, GripVertical, Save, X, Upload, ChevronDown } from "lucide-react";
 import { getPlatformLanguage } from "../locales";
 import { RobustImage } from "./RobustImage";
 
@@ -101,8 +101,8 @@ export const AchieversManager: React.FC<AchieversManagerProps> = ({ onClose }) =
         formDataToSend.append("photo", formData.photoFile);
       }
 
-      const url = editing ? `/api/achievers/${editing}` : "/api/achievers";
-      const method = editing ? "PUT" : "POST";
+      const url = editing && editing !== "new" ? `/api/achievers/${editing}` : "/api/achievers";
+      const method = editing && editing !== "new" ? "PUT" : "POST";
 
       const res = await fetch(url, {
         method,
@@ -243,6 +243,11 @@ export const AchieversManager: React.FC<AchieversManagerProps> = ({ onClose }) =
             <label className="block text-sm font-bold text-slate-600 uppercase mb-3">
               {lang === "ar" ? "عدد الأبطال على الصفحة الرئيسية" : "Achievers on Homepage"}
             </label>
+            <p className="text-xs text-slate-500 mb-4">
+              {lang === "ar"
+                ? `سيتم عرض أول ${homepageCount} من الأبطال (مرتبة حسب الترتيب أدناه) على الصفحة الرئيسية العامة`
+                : `Only the top ${homepageCount} achievers (by order below) will appear on the public homepage`}
+            </p>
             <div className="flex items-center gap-4">
               <input
                 type="range"
@@ -256,11 +261,6 @@ export const AchieversManager: React.FC<AchieversManagerProps> = ({ onClose }) =
                 <span className="text-xl font-black text-indigo-600">{homepageCount}</span>
               </div>
             </div>
-            <p className="text-xs text-slate-500 mt-2">
-              {lang === "ar"
-                ? `سيتم عرض أول ${homepageCount} من الأبطال (مرتبة حسب الترتيب أدناه) على الصفحة الرئيسية العامة`
-                : `Only the top ${homepageCount} achievers (by order below) will appear on the public homepage`}
-            </p>
           </div>
 
           {/* Add New Achiever Button */}
@@ -409,7 +409,7 @@ export const AchieversManager: React.FC<AchieversManagerProps> = ({ onClose }) =
                       <img src={achiever.photo_url} alt={achiever.name} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-slate-200 text-xs font-bold text-slate-500">
-                        No
+                        ✓
                       </div>
                     )}
                   </div>
